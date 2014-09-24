@@ -56,6 +56,7 @@ class FormsFeature(Feature):
 
     def register(self, form_class):
         self.forms[form_class.__name__] = form_class
+        return form_class
 
     def __getitem__(self, name):
         return self.forms[name]
