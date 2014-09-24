@@ -5,6 +5,9 @@ def desc():
     with open("README.md") as f:
         return f.read()
 
+def reqs():
+    with open('requirements.txt') as f:
+        return f.read().splitlines()
 
 setup(
     name='frasco-forms',
@@ -19,9 +22,5 @@ setup(
     include_package_data=True,
     zip_safe=False,
     platforms='any',
-    install_requires=[
-        'frasco',
-        'Flask-WTF==0.9.5',
-        'inflection'
-    ]
+    install_requires=reqs() + ['frasco']
 )
