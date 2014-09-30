@@ -124,7 +124,7 @@ class FormsFeature(Feature):
 
         try:
             as_ = opts.get("var_name", getattr(self.form, "as_", "form"))
-            form_class = create_from_template(view.app, template, var_name=as_)
+            form_class = create_from_template(current_app, template, var_name=as_)
         except NoFormError:
             if not name:
                 raise
