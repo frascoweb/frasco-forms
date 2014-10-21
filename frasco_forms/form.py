@@ -168,9 +168,6 @@ def create_from_template_node(template_node, name="F", var_name="form"):
         for arg in call.kwargs:
             fields[fname][1][arg.key] = _check_translation(arg.value)
 
-    if len(fields) == 0:
-        raise NoFormError("The 'form' action is used in a template where no form are defined")
-
     form_class = type(name, (TemplateForm,), {"name": name})
 
     for fname, fopts in fields.iteritems():
