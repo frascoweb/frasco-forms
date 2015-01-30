@@ -1,10 +1,8 @@
 from frasco import Feature, action, signal, current_app, request, current_context
 from frasco.utils import AttrDict, DictObject
-from flask import send_from_directory
 from jinja2 import FileSystemLoader
 import os
 import inspect
-from .upload import *
 from .form import *
 
 
@@ -13,12 +11,6 @@ class FormsFeature(Feature):
     """
     name = "forms"
     defaults = {"import_macros": True,
-                "upload_backend": "local",
-                "upload_dir": "uploads",
-                "upload_url": "/uploads",
-                "upload_uuid_prefixes": True,
-                "upload_keep_filenames": True,
-                "upload_subfolders": False,
                 "csrf_enabled": True}
 
     form_validation_failed_signal = signal("form_validation_failed")
@@ -27,18 +19,6 @@ class FormsFeature(Feature):
 
     def init_app(self, app):
         self.forms = {}
-        self._default_upload_backend = None
-
-        app.add_template_global(url_for_upload)
-
-        if self.options["upload_backend"] == "local":
-            def send_uploaded_file(filename):
-                return send_from_directory(self.options["upload_dir"], filename,
-                    cache_timeout=app.config['SEND_FILE_MAX_AGE_DEFAULT'])
-            app.add_url_rule(self.options["upload_url"] + "/<path:filename>",
-                             endpoint="static_upload",
-                             view_func=send_uploaded_file)
-
         if self.options["import_macros"]:
             macro_file = os.path.join(os.path.dirname(__file__), "macros.html")
             app.jinja_env.macros.register_file(macro_file, "form.html")
@@ -66,11 +46,6 @@ class FormsFeature(Feature):
 
     def __contains__(self, name):
         return name in self.forms
-
-    def get_default_upload_backend(self):
-        if not self._default_upload_backend:
-            self._default_upload_backend = create_upload_backend(self.options["upload_backend"])
-        return self._default_upload_backend
 
     @action(default_option="form", methods=("GET", "POST"), as_="form")
     def form(self, obj=None, form=None, name=None, template=None, var_name=None, validate_on_submit=True,\

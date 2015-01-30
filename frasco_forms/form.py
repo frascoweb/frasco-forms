@@ -6,7 +6,6 @@ from frasco import Markup, render_template, AttrDict, translate, ntranslate, laz
 from frasco.templating import parse_template, jinja_node_to_python
 from frasco.declarative import FileLoader
 from jinja2 import nodes
-from .upload import *
 import inflection
 import os
 
@@ -27,7 +26,6 @@ field_type_map = {"checkbox": wtfields.BooleanField,
                   "text": wtfields.StringField,
                   "textarea": wtfields.TextAreaField,
                   "password": wtfields.PasswordField,
-                  "upload": FileField,
                   "hidden": wtfields.HiddenField,
                   "date5": wtfields5.DateField,
                   "datetime5": wtfields5.DateTimeField,
@@ -190,8 +188,6 @@ def create_from_template_node(template_node, name="F", var_name="form"):
         if "length" in kwargs:
             min, max = kwargs.pop("length")
             validators.append(wtvalidators.Length(min, max))
-        if "allowed_exts" in kwargs:
-            validators.append(FileAllowed(kwargs.pop("allowed_exts")))
         if "validators" in kwargs:
             for v in kwargs.pop("validators"):
                 validators.append(getattr(wtvalidators, v)())
