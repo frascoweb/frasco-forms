@@ -16,7 +16,7 @@ setup(
     zip_safe=False,
     platforms='any',
     install_requires=[
-        # 'frasco',
+        'frasco',
         'Flask-WTF>=0.9.5',
         'inflection'
     ]
