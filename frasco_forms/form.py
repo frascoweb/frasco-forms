@@ -14,34 +14,36 @@ __all__ = ('Form', 'TemplateForm', 'fields', 'validators', 'FormDefinitionError'
            'NoFormError', 'FormLoader', 'create_from_template')
 
 
-field_type_map = {"checkbox": wtfields.BooleanField,
-                  "decimal": wtfields.DecimalField,
-                  "date": wtfields.DateField,
-                  "datetime": wtfields.DateTimeField,
-                  "float": wtfields.FloatField,
-                  "int": wtfields.IntegerField,
-                  "radio": wtfields.RadioField,
-                  "select": wtfields.SelectField,
-                  "selectmulti": wtfields.SelectMultipleField,
-                  "text": wtfields.StringField,
-                  "textarea": wtfields.TextAreaField,
-                  "password": wtfields.PasswordField,
-                  "hidden": wtfields.HiddenField,
-                  "date5": wtfields5.DateField,
-                  "datetime5": wtfields5.DateTimeField,
-                  "datetimelocal": wtfields5.DateTimeLocalField,
-                  "decimal5": wtfields5.DecimalField,
-                  "decimalrange": wtfields5.DecimalRangeField,
-                  "email": wtfields5.EmailField,
-                  "int5": wtfields5.IntegerField,
-                  "intrange": wtfields5.IntegerRangeField,
-                  "search": wtfields5.SearchField,
-                  "tel": wtfields5.TelField,
-                  "url": wtfields5.URLField}
+field_type_map = AttrDict({
+    "checkbox": wtfields.BooleanField,
+    "decimal": wtfields.DecimalField,
+    "date": wtfields.DateField,
+    "datetime": wtfields.DateTimeField,
+    "float": wtfields.FloatField,
+    "int": wtfields.IntegerField,
+    "radio": wtfields.RadioField,
+    "select": wtfields.SelectField,
+    "selectmulti": wtfields.SelectMultipleField,
+    "text": wtfields.StringField,
+    "textarea": wtfields.TextAreaField,
+    "password": wtfields.PasswordField,
+    "hidden": wtfields.HiddenField,
+    "date5": wtfields5.DateField,
+    "datetime5": wtfields5.DateTimeField,
+    "datetimelocal": wtfields5.DateTimeLocalField,
+    "decimal5": wtfields5.DecimalField,
+    "decimalrange": wtfields5.DecimalRangeField,
+    "email": wtfields5.EmailField,
+    "int5": wtfields5.IntegerField,
+    "intrange": wtfields5.IntegerRangeField,
+    "search": wtfields5.SearchField,
+    "tel": wtfields5.TelField,
+    "url": wtfields5.URLField
+})
 
 
 # for easy import
-fields = AttrDict(field_type_map)
+fields = field_type_map
 validators = wtvalidators
 
 
