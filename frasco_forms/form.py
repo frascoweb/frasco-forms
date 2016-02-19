@@ -163,10 +163,10 @@ def create_from_template_node(template_node, name="F", var_name="form"):
         fields[fname] = [call.node.attr, {}]
 
         if len(call.args) > 0:
-            fields[fname][1]["label"] = _check_translation(call.args[0])
+            fields[fname][1]["label"] = jinja_node_to_python(call.args[0])
 
         for arg in call.kwargs:
-            fields[fname][1][arg.key] = _check_translation(arg.value)
+            fields[fname][1][arg.key] = jinja_node_to_python(arg.value)
 
     form_class = type(name, (TemplateForm,), {"name": name})
 
@@ -193,14 +193,8 @@ def create_from_template_node(template_node, name="F", var_name="form"):
         if "validators" in kwargs:
             for v in kwargs.pop("validators"):
                 validators.append(getattr(wtvalidators, v)())
+        if "placeholder" in kwargs:
+            kwargs.setdefault('render_kw', {})["placeholder"] = kwargs.pop("placeholder")
         setattr(form_class, fname, UnboundTemplateField(field_type_map[ftype](validators=validators, **kwargs)))
 
     return form_class
-
-
-def _check_translation(node):
-    if isinstance(node, nodes.Call):
-        if not isinstance(node.node, nodes.Name) or node.node.name not in ("_", "translate", "gettext"):
-            raise FormDefinitionError("Cannot use a function call (other than translation calls) in field definitions")
-        return lazy_translate(jinja_node_to_python(node.args[0]))
-    return jinja_node_to_python(node)
