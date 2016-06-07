@@ -51,8 +51,8 @@ class FormTranslations(object):
     def gettext(self, string, **kwargs):
         return translate(string, **kwargs)
 
-    def ngettext(self, singular, plural, n, **kwargs):
-        return ntranslate(singular, plural, n, **kwargs)
+    def ngettext(self, singular, plural, n):
+        return translate(singular) if n == 1 else translate(plural)
 
 
 class Form(WTForm):
