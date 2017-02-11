@@ -67,7 +67,7 @@ class FormsFeature(Feature):
                 obj = DictObject(obj)
             if csrf_enabled is None:
                 csrf_enabled = self.options["csrf_enabled"]
-            form = form(obj=obj, csrf_enabled=csrf_enabled)
+            form = form(obj=obj, meta={'csrf': csrf_enabled})
 
         current_context.data.form = form
         yield form

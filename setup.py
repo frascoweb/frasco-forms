@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='frasco-forms',
-    version='0.2.1',
+    version='0.3',
     url='http://github.com/frascoweb/frasco-forms',
     license='MIT',
     author='Maxime Bouroumeau-Fuseau',
@@ -17,7 +17,7 @@ setup(
     platforms='any',
     install_requires=[
         'frasco',
-        'Flask-WTF>=0.9.5',
+        'Flask-WTF>=0.14.0',
         'inflection'
     ]
 )
